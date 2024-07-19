@@ -1,0 +1,50 @@
+{% extends "search.html" %}
+{% load static %}
+<!DOCTYPE html>
+{% block image %}
+<head>
+    <script>
+        function digitalClock(UTC_d, UTC_h, UTC_m) {
+        var buff = 1;
+        if (UTC_d=="-") buff = -1;
+        var date = new Date();
+        var hours = date.getUTCHours() + (buff*UTC_h);
+        if(hours<0) hours = 24 + hours;
+        var minutes = date.getUTCMinutes() + (buff*UTC_m);
+        var seconds = date.getSeconds();
+            if (hours < 10) hours = "0" + hours;
+            if (minutes < 10) minutes = "0" + minutes;
+            if (seconds < 10) seconds = "0" + seconds;
+            document.getElementById("id_clock").innerHTML = hours + ":" + minutes + ":" + seconds;
+            setTimeout('digitalClock("{{UTC_delimiter}}","{{UTC_hours}}","{{UTC_minutes}}")', 1000);
+        }
+       </script>
+</head>
+<div class="nft">
+    <div class='main'>
+        <h1>{{temperature}} °C</h1>
+        <h3 class='cityName'>{{name}}</h3>
+        <p class='description'>{{display_name}}</p>
+        <div class='tokenInfo'>
+        <div class="price">
+            <p>{{UTC}} UTC</p>
+        </div>
+        <div class="duration">
+            <ins>◷</ins>
+            <p>
+                <div id="id_clock"></div>
+                <script>digitalClock("{{UTC_delimiter}}","{{UTC_hours}}","{{UTC_minutes}}", );</script> 
+            </p>
+        </div>
+        </div>
+        <hr />
+        <div class='creator'>
+        <p><ins>Прогноз на ближайший</ins> час</p>
+        </div>
+    </div>
+</div>
+{% endblock image %}
+
+
+
+</html>

@@ -1,0 +1,41 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ищим погодку</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta https-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="{% static 'search.css'%}" type="text/css">
+    <link rel="stylesheet" href="{% static 'city.css'%}" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
+  </head>
+<body>
+    <form action="{% url 'weather' %}" method="POST">
+        {% csrf_token %}
+        {{form}}
+        <div class="container">
+            <input type="text" id="site-search" name="search" list = 'cities' placeholder="Город"/>
+            <datalist id="site-search">
+              {% for city in cities %}
+                <option value="{{city.name}}"></option>
+              {% endfor %}
+            </datalist>
+
+            <div class="search"></div>
+        </div>
+    </form>
+    {% block image %}
+    <div class="nft">
+      <div class='main'>
+          <h1>{{temperature}} °C</h1>
+          <h3 class='cityName'>{{name}}</h3>
+          <hr />
+          <div class='creator'>
+          <p><ins>Последний запрос</ins></p>
+          </div>
+      </div>
+    </div>
+    {% endblock image %}
+</body>
+</html>

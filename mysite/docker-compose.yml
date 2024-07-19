@@ -1,0 +1,29 @@
+version: "1.0"
+services:
+  postgres_db:
+    image: postgres:latest
+    restart: always
+    environment:    
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: example
+    ports: 
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+  weather_web:
+    build: 
+      context: ./
+      dockerfile: Dockerfile
+    command: bash -c "python /mysite/mysite/weatherapi/manage.py migrate --noinput && 
+        python /mysite/mysite/weatherapi/manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/mysite/mysite/weatherapi
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres_db
+    restart: always
+volumes:
+  postgres_data:
+    
