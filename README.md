@@ -21,7 +21,7 @@
 1. Запустить все можно используя docker:
     - docker build
     - docker up
-2. Запустить все можно используя Django (Для этого нужно закомментировать DATABASES и раскомментировать DATABASES ниже):
+2. Запустить все можно используя Django (Для этого нужно в settings.py закомментировать DATABASES и раскомментировать DATABASES ниже):
     - python manage.py migrate
     - python manage.py runserver
 
